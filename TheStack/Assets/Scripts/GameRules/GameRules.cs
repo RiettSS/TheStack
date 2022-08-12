@@ -84,8 +84,8 @@ public class GameRules
 
     public Color GetColor()
     {
-        var offset = _platformCounter * 0.15f;
-        var offsetSin = Mathf.Abs(Mathf.Sin(offset)) * 0.90f;
+        var offset = _platformCounter * 0.1f;
+        var offsetSin = Mathf.Abs(Mathf.Sin(offset)) * 0.95f;
         return new Color(offsetSin, offsetSin, offsetSin);
     }
 

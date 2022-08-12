@@ -64,10 +64,10 @@ public abstract class Platform : MonoBehaviour
     {
         var currentPlatformPosition = CurrentPlatform.transform.position;
         var lastPlatformPosition = LastPlatform.transform.position;
-        var positionsDelta = currentPlatformPosition - lastPlatformPosition;
-        var perfectMatchCondition = 0.3f;
+        var positionsDelta = new Vector2(currentPlatformPosition.x, currentPlatformPosition.z) - new Vector2(lastPlatformPosition.x, lastPlatformPosition.z);
+        var perfectMatchCondition = 0.04f;
 
-        Debug.Log(positionsDelta.magnitude < perfectMatchCondition);
+        var cond = positionsDelta.magnitude < perfectMatchCondition;
         
         return positionsDelta.magnitude < perfectMatchCondition;
     }
