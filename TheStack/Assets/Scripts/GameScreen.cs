@@ -1,9 +1,10 @@
-using System;
-using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameScreen : MonoBehaviour
 {
+    [SerializeField] private Text _scoreText;
+    
     private IInputService _inputService;
     private IPlatformCreator _platformCreator;
 
@@ -17,8 +18,23 @@ public class GameScreen : MonoBehaviour
         _gameRules = new GameRules(_inputService, _platformCreator);
     }
 
+    private void OnEnable()
+    {
+        ScoreSystem.ScoreUpdated += UpdateUI;
+    }
+
+    private void OnDisable()
+    {
+        ScoreSystem.ScoreUpdated -= UpdateUI;
+    }
+
     private void Start()
     {
         _gameRules.Start();
+    }
+
+    private void UpdateUI(int score)
+    {
+        _scoreText.text = score.ToString();
     }
 }

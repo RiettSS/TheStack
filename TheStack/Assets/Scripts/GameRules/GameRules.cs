@@ -15,6 +15,7 @@ public class GameRules
 
     public void Start()
     {
+        ScoreSystem.Refresh();
         _platformCreator.CreatePlatform();
     }
 
@@ -31,12 +32,14 @@ public class GameRules
         {
             Platform.CurrentPlatform.Stop();
             Platform.CurrentPlatform.AlignToLastPlatform();
+            ScoreSystem.AddScore(3);
             _platformCreator.CreatePlatform();
             return;
         }
         
         Platform.CurrentPlatform.Stop();
         Platform.CurrentPlatform.Cut();
+        ScoreSystem.AddScore(1);
         _platformCreator.CreatePlatform();
     }
 
