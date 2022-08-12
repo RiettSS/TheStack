@@ -28,9 +28,7 @@ public abstract class Platform : MonoBehaviour
 
     public void AlignToLastPlatform()
     {
-        var lastPlatformPosition = LastPlatform.transform.position;
         var desiredPosition = new Vector3(LastPlatform.transform.position.x, CurrentPlatform.transform.position.y, LastPlatform.transform.position.z);
-
         CurrentPlatform.transform.position = desiredPosition;
     }
 
@@ -66,8 +64,6 @@ public abstract class Platform : MonoBehaviour
         var lastPlatformPosition = LastPlatform.transform.position;
         var positionsDelta = new Vector2(currentPlatformPosition.x, currentPlatformPosition.z) - new Vector2(lastPlatformPosition.x, lastPlatformPosition.z);
         var perfectMatchCondition = 0.04f;
-
-        var cond = positionsDelta.magnitude < perfectMatchCondition;
         
         return positionsDelta.magnitude < perfectMatchCondition;
     }

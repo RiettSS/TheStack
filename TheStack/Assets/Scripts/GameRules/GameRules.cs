@@ -5,6 +5,7 @@ public class GameRules
 {
     private IInputService _inputService;
     private IPlatformCreator _platformCreator;
+    private ColorGenerator _colorGenerator;
 
     private Camera _mainCamera;
     private int _platformCounter;
@@ -13,6 +14,7 @@ public class GameRules
     {
         _inputService = inputService;
         _platformCreator = platformCreator;
+        _colorGenerator = new ColorGenerator();
 
         _inputService.PlayerTapped += OnPlayerTap;
     }
@@ -84,21 +86,11 @@ public class GameRules
 
     public Color GetColor()
     {
-        var offset = _platformCounter * 0.1f;
-        var offsetSin = Mathf.Abs(Mathf.Sin(offset)) * 0.95f;
-        return new Color(offsetSin, offsetSin, offsetSin);
+        return _colorGenerator.GetColor();
     }
 
     private Color GetOppositeColor()
     {
-        var color = GetColor();
-
-        var r = 1f - color.r;
-        var g = 1f - color.g;
-        var b = 1f - color.b;
-
-        var result = new Color(r, g, b);
-
-        return result;
+        return _colorGenerator.GetOppositeColor();
     }
 }
