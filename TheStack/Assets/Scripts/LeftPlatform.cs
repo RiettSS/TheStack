@@ -28,8 +28,6 @@ public class LeftPlatform : Platform
         
         transform.localScale = new Vector3( placedPlatformScale, transform.localScale.y, transform.localScale.z);
         transform.position = new Vector3(placedPlatformPos, transform.position.y, transform.position.z);
-        
-        Debug.Log(positionsDelta);
     }
 
     public override bool Placeable()

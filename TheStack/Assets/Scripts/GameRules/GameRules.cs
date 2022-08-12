@@ -27,10 +27,11 @@ public class GameRules
             return;
         }
 
-        if (IdealMatch())
+        if (PerfectMatch())
         {
             Platform.CurrentPlatform.Stop();
             Platform.CurrentPlatform.AlignToLastPlatform();
+            _platformCreator.CreatePlatform();
             return;
         }
         
@@ -39,9 +40,9 @@ public class GameRules
         _platformCreator.CreatePlatform();
     }
 
-    private bool IdealMatch()
+    private bool PerfectMatch()
     {
-        return false;
+        return Platform.CurrentPlatform.PerfectMatch();
     }
 
     private bool Placeable()
@@ -52,6 +53,18 @@ public class GameRules
     private void GameOver()
     {
         _inputService.PlayerTapped -= OnPlayerTap;
-        SceneManager.LoadSceneAsync(0);
+        ShowAd();
+        SendScoreToDatabase();
+        SceneManager.LoadScene(0);
+    }
+
+    private void ShowAd()
+    {
+        
+    }
+
+    private void SendScoreToDatabase()
+    {
+        
     }
 }

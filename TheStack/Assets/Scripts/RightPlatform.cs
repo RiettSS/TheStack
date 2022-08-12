@@ -26,17 +26,13 @@ public class RightPlatform : Platform
         Place();
         
         transform.localScale = new Vector3( transform.localScale.x, transform.localScale.y, placedPlatformScale);
-        transform.position = new Vector3(transform.position.x, transform.position.y, placedPlatformPos);
-        
-        Debug.Log(positionsDelta);
+        transform.position = new Vector3(transform.position.x, transform.position.y, placedPlatformPos); 
     }
 
     public override bool Placeable()
     {
         var startPoint = LastPlatform.transform.position;
         var positionsDelta = Mathf.Abs(startPoint.z - CurrentPlatform.transform.position.z);
-
-        Debug.Log("delta is " + positionsDelta + ", last platform scale is " + LastPlatform.transform.localScale.z);
         
         if (positionsDelta < LastPlatform.transform.localScale.z)
         {

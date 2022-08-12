@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public abstract class Platform : MonoBehaviour
@@ -26,7 +27,10 @@ public abstract class Platform : MonoBehaviour
 
     public void AlignToLastPlatform()
     {
-        throw new System.NotImplementedException();
+        var lastPlatformPosition = LastPlatform.transform.position;
+        var desiredPosition = new Vector3(LastPlatform.transform.position.x, CurrentPlatform.transform.position.y, LastPlatform.transform.position.z);
+
+        CurrentPlatform.transform.position = desiredPosition;
     }
 
     public void ChangeColor(Color color)
@@ -53,5 +57,17 @@ public abstract class Platform : MonoBehaviour
 
         if(!_isStopped)
             Move(position);
+    }
+
+    public bool PerfectMatch()
+    {
+        var currentPlatformPosition = CurrentPlatform.transform.position;
+        var lastPlatformPosition = LastPlatform.transform.position;
+        var positionsDelta = currentPlatformPosition - lastPlatformPosition;
+        var perfectMatchCondition = 0.3f;
+
+        Debug.Log(positionsDelta.magnitude < perfectMatchCondition);
+        
+        return positionsDelta.magnitude < perfectMatchCondition;
     }
 }
