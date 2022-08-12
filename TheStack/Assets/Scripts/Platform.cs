@@ -2,21 +2,23 @@ using UnityEngine;
 
 public abstract class Platform : MonoBehaviour
 {
+    public float Thickness { get; private set; }
+    
     [SerializeField] public float Speed;
-
+    
     public static Platform CurrentPlatform;
     public static Platform LastPlatform;
 
     private float _movingOffset;
-    private float _thickness;
     private float _startPoint = -1.8f;
 
     private bool _isStopped = false;
 
     private void Awake()
     {
-        _thickness = transform.localScale.y;
+        Thickness = transform.localScale.y;
         _movingOffset -= _startPoint;
+        Thickness = 0.1f;
     }
 
     public void Stop()

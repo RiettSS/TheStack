@@ -23,7 +23,6 @@ public class GameRules
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _mainCamera.backgroundColor = GetOppositeColor();
         _platformCreator.CreatePlatform(GetColor());
-
     }
 
     private void OnPlayerTap()
@@ -52,6 +51,7 @@ public class GameRules
 
         _platformCreator.CreatePlatform(GetColor());
         _mainCamera.backgroundColor = GetOppositeColor();
+        _mainCamera.transform.position = new Vector3(_mainCamera.transform.position.x, _mainCamera.transform.position.y + Platform.LastPlatform.Thickness, _mainCamera.transform.position.z);
     }
 
     private bool PerfectMatch()
@@ -82,10 +82,10 @@ public class GameRules
 
     }
 
-    private Color GetColor()
+    public Color GetColor()
     {
-        var offset = _platformCounter * 0.1f;
-        var offsetSin = Mathf.Abs(Mathf.Sin(offset));
+        var offset = _platformCounter * 0.15f;
+        var offsetSin = Mathf.Abs(Mathf.Sin(offset)) * 0.90f;
         return new Color(offsetSin, offsetSin, offsetSin);
     }
 

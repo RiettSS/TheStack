@@ -36,5 +36,6 @@ public class GameScreen : MonoBehaviour
     private void UpdateUI(int score)
     {
         _scoreText.text = score.ToString();
+        _scoreText.color = _gameRules.GetColor();
     }
 }
