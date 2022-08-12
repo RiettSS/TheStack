@@ -21,18 +21,7 @@ public class PlatformFabric : MonoBehaviour, IPlatformFabric
         _platformCounter++;
 
         var platform = platformInstance.GetComponent<Platform>();
-        platform.ChangeColor(GetColor());
         
         return platform;
-    }
-
-    private Color GetColor()
-    {
-        var offset = _platformCounter * 0.1f;
-
-        var offsetSin = Mathf.Abs(Mathf.Sin(offset));
-        
-        
-        return new Color(offsetSin, offsetSin, offsetSin);
     }
 }

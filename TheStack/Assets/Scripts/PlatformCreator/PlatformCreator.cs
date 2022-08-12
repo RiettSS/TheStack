@@ -9,12 +9,13 @@ public class PlatformCreator : MonoBehaviour, IPlatformCreator
         _platformFabric = GetComponent<IPlatformFabric>();
     }
 
-    public Platform CreatePlatform()
+    public Platform CreatePlatform(Color color)
     {
         var platform = _platformFabric.CreatePlatform();
         
         platform.Speed = 1.5f;
         Platform.CurrentPlatform = platform;
+        platform.ChangeColor(color);
         
         return platform;
     }

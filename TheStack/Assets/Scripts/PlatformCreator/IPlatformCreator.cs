@@ -3,5 +3,5 @@ using UnityEngine;
 
 public interface IPlatformCreator
 {
-    Platform CreatePlatform();
+    Platform CreatePlatform(Color color);
 }
