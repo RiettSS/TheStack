@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public abstract class Platform : MonoBehaviour
@@ -35,7 +34,7 @@ public abstract class Platform : MonoBehaviour
 
     public void ChangeColor(Color color)
     {
-        throw new System.NotImplementedException();
+        GetComponentInChildren<Renderer>().material.color = color;
     }
 
     public abstract void Cut();
