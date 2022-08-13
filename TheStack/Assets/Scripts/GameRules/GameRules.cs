@@ -1,3 +1,4 @@
+using Ads;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,6 +7,7 @@ public class GameRules
     private IInputService _inputService;
     private IPlatformCreator _platformCreator;
     private ColorGenerator _colorGenerator;
+    private InterAd _interAd;
 
     private Camera _mainCamera;
     private int _platformCounter;
@@ -15,8 +17,10 @@ public class GameRules
         _inputService = inputService;
         _platformCreator = platformCreator;
         _colorGenerator = new ColorGenerator();
+        _interAd = new InterAd();
 
         _inputService.PlayerTapped += OnPlayerTap;
+        _interAd.Closed += RestartGame;
     }
 
     public void Start()
@@ -52,8 +56,10 @@ public class GameRules
         }
 
         _platformCreator.CreatePlatform(GetColor());
-        _mainCamera.backgroundColor = GetOppositeColor();
-        _mainCamera.transform.position = new Vector3(_mainCamera.transform.position.x, _mainCamera.transform.position.y + Platform.LastPlatform.Thickness, _mainCamera.transform.position.z);
+        var desiredCameraPosition = new Vector3(_mainCamera.transform.position.x, _mainCamera.transform.position.y + Platform.LastPlatform.Thickness, _mainCamera.transform.position.z);
+        var camera = _mainCamera.GetComponent<CameraController>();
+        camera.SetNewPosition(desiredCameraPosition);
+        camera.SetNewColor(GetOppositeColor());
     }
 
     private bool PerfectMatch()
@@ -71,12 +77,11 @@ public class GameRules
         _inputService.PlayerTapped -= OnPlayerTap;
         ShowAd();
         SendScoreToDatabase();
-        SceneManager.LoadScene(0);
     }
 
     private void ShowAd()
     {
-
+        _interAd.Show();
     }
 
     private void SendScoreToDatabase()
@@ -84,6 +89,12 @@ public class GameRules
 
     }
 
+    private void RestartGame()
+    {
+        _interAd.Closed -= RestartGame;
+        SceneManager.LoadScene(0);
+    }
+    
     public Color GetColor()
     {
         return _colorGenerator.GetColor();
