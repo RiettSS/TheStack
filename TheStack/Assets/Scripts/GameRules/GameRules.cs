@@ -8,9 +8,11 @@ public class GameRules
     private IPlatformCreator _platformCreator;
     private ColorGenerator _colorGenerator;
     private InterAd _interAd;
+    private GameObject _tapToRestartText;
 
     private Camera _mainCamera;
     private int _platformCounter;
+    private bool _isGameOver = false;
 
     public GameRules(IInputService inputService, IPlatformCreator platformCreator)
     {
@@ -20,11 +22,15 @@ public class GameRules
         _interAd = new InterAd();
 
         _inputService.PlayerTapped += OnPlayerTap;
-        _interAd.Closed += RestartGame;
+        //_interAd.Closed += RestartGame;
     }
 
     public void Start()
     {
+        Time.timeScale = 1;
+        _isGameOver = false;
+        _tapToRestartText = GameObject.FindGameObjectWithTag("RestartText");
+        _tapToRestartText.SetActive(false);
         ScoreSystem.Refresh();
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         _mainCamera.backgroundColor = GetOppositeColor();
@@ -33,6 +39,9 @@ public class GameRules
 
     private void OnPlayerTap()
     {
+        if(_isGameOver)
+            RestartGame();
+        
         if (!Placeable())
         {
             GameOver();
@@ -74,7 +83,9 @@ public class GameRules
 
     private void GameOver()
     {
-        _inputService.PlayerTapped -= OnPlayerTap;
+        //_inputService.PlayerTapped -= OnPlayerTap;
+        _tapToRestartText.SetActive(true);
+        _isGameOver = true;
         ShowAd();
         SendScoreToDatabase();
     }
@@ -91,8 +102,7 @@ public class GameRules
 
     private void RestartGame()
     {
-        _interAd.Closed -= RestartGame;
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("Scenes/GameScreen");
     }
     
     public Color GetColor()

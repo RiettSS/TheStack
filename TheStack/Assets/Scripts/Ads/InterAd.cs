@@ -1,5 +1,7 @@
 using System;
 using GoogleMobileAds.Api;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Ads
 {
@@ -24,11 +26,16 @@ namespace Ads
             {
                 _interstitial.Show();
             }
+            else
+            {
+                
+            }
         }
         
         private void OnAdClosed(object sender, EventArgs e)
         {
-            Closed?.Invoke();
+            //Closed?.Invoke();
+            //SceneManager.LoadScene("Scenes/GameScreen");
         }
 
     }
